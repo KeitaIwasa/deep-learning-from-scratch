@@ -1,13 +1,14 @@
 # coding: utf-8
 import os
 import sys
+import pickle
 
 sys.path.append(os.pardir)  # 親ディレクトリのファイルをインポートするための設定
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset.mnist import load_mnist
 from common.multi_layer_net import MultiLayerNet
-from common.optimizer import SGD
+from common.optimizer import SGD, Adam
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True)
 
@@ -22,9 +23,9 @@ weight_decay_lambda = 0 # weight decayを使用しない場合
 
 network = MultiLayerNet(input_size=784, hidden_size_list=[100, 100, 100, 100, 100, 100], output_size=10,
                         weight_decay_lambda=weight_decay_lambda)
-optimizer = SGD(lr=0.01)
+optimizer = Adam(lr=0.01)  # Adamオプティマイザを使用
 
-max_epochs = 201
+max_epochs = 101
 train_size = x_train.shape[0]
 batch_size = 100
 
@@ -67,3 +68,8 @@ plt.ylim(0, 1.0)
 plt.legend(loc='lower right')
 plt.savefig('figure/overfit_weight_decay.png', dpi=300, bbox_inches='tight')
 plt.show()
+
+# 学習済みモデルを保存
+with open('trained_model.pkl', 'wb') as f:
+    pickle.dump(network, f)
+print("Trained model saved as 'trained_model.pkl'")
