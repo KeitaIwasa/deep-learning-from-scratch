@@ -16,8 +16,8 @@ x_train = x_train[:300]
 t_train = t_train[:300]
 
 # weight decay（荷重減衰）の設定 =======================
-#weight_decay_lambda = 0 # weight decayを使用しない場合
-weight_decay_lambda = 0.1
+weight_decay_lambda = 0 # weight decayを使用しない場合
+#weight_decay_lambda = 0.1
 # ====================================================
 
 network = MultiLayerNet(input_size=784, hidden_size_list=[100, 100, 100, 100, 100, 100], output_size=10,
@@ -65,4 +65,5 @@ plt.xlabel("epochs")
 plt.ylabel("accuracy")
 plt.ylim(0, 1.0)
 plt.legend(loc='lower right')
+plt.savefig('figure/overfit_weight_decay.png', dpi=300, bbox_inches='tight')
 plt.show()

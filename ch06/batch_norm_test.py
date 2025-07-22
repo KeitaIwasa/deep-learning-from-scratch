@@ -84,4 +84,5 @@ for i, w in enumerate(weight_scale_list):
         plt.xlabel("epochs")
     plt.legend(loc='lower right')
     
+plt.savefig('figure/batch_norm_test.png', dpi=300, bbox_inches='tight')
 plt.show()
